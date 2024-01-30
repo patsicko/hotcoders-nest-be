@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {MomoPaymentResponse} from './momo-payment.dto'
+import { error } from 'console';
 
 @Injectable()
 export class UserService {
@@ -31,9 +32,28 @@ export class UserService {
     return await this.userRepository.update(id,user)
   }
 
+  async adminApprove(id:number):Promise<User>{
+    const user= await this.userRepository.findOne({where:{id}});
+    if(!user){
+      throw new Error('User not found')
+    }
+    user.adminApproval=true;
+   return await this.userRepository.save(user)
+  }
+
+  async managerAproval(id:number):Promise<User>{
+    const user= await this.userRepository.findOne({where:{id}});
+    if(!user){
+      throw new Error('User not found')
+    }
+    user.managerApproval=true;
+   return await this.userRepository.save(user)
+  }
+
  async deleteUser(id:number):Promise<void>{
     await this.userRepository.delete({id})
  }
+
 
 
 
@@ -47,4 +67,14 @@ export class UserService {
   user.momoPaymentResponse = JSON.stringify(momoPaymentResponse);
   return await this.userRepository.save(user);
 }
+
+async changeRole(id:number, role:string):Promise<User>{
+  const user = await this.userRepository.findOne({where:{id}});
+  if(!user){
+  throw new NotFoundException('User not found')
+  }
+  user.role=role;
+  return await this.userRepository.save(user)
+}
+
 }

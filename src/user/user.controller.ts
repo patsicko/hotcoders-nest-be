@@ -147,4 +147,44 @@ export class UserController {
             throw new NotFoundException('User not found');
         }
     }
+
+
+    @Put(':id/admin-approval')
+    async adminApproval(
+        @Param('id') id:number
+    ):Promise<User>{
+        try{
+            const userWithAdminApproval= await this.userService.adminApprove(id);
+            return userWithAdminApproval;
+        }catch(error){
+            throw new NotFoundException('user not found',error)
+        }
+    }
+
+    @Put(':id/manager-approval')
+    async managerApproval(
+        @Param('id') id:number
+    ):Promise<User>{
+        try{
+            const userWithManagerApproval = await this.userService.managerAproval(id);
+            return userWithManagerApproval;
+        }catch(error){
+            throw new NotFoundException("user not found",error)
+        }
+    }
+
+
+    @Put(':id/change-role')
+    async  changeRole(
+        @Param('id') id:number,
+        @Body('role') role:string
+    ):Promise<User>
+    {
+         try{
+            const userWithChangedRole = await this.userService.changeRole(id,role);
+            return userWithChangedRole;
+         }catch(error){
+           throw new NotFoundException("User role not changed",error)
+         }
+    }
 }
