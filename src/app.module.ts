@@ -18,6 +18,9 @@ import { AdminSeederProvider } from './user/admin-seeder.provider';
 import * as dotenv from 'dotenv';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from './user/jwt.config';
+import { BlogModule } from './blog/blog.module';
+import { UserBlogSubscriptionModule } from './user-blog-subscription/user-blog-subscription.module';
+
 dotenv.config();
 
 console.log('Postgres URL:', process.env.postgresURL);
@@ -42,6 +45,8 @@ console.log('Postgres URL:', process.env.postgresURL);
   ProductModule,
   CourseModule,
   UserModule,
+  BlogModule,
+  UserBlogSubscriptionModule,
  
 ],
   

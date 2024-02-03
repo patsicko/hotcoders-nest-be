@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { UserBlogSubscription } from "src/user-blog-subscription/entities/user-blog-subscription.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User{
@@ -31,5 +32,8 @@ export class User{
 
     @Column({ type: 'json', nullable: true }) 
     momoPaymentResponse?: object | string;
+
+    @OneToMany(()=>UserBlogSubscription,subscription=>subscription.user)
+    blogSubscriptions:UserBlogSubscription[]
 
 }

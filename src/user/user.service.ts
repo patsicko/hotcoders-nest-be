@@ -17,12 +17,17 @@ export class UserService {
    }
 
   async createUser(user:User):Promise<User>{
+    
     return await this.userRepository.save(user)
   }
 
-  async getOne(id:number):Promise<User | undefined>{
-     return await this.userRepository.findOneBy({id})
-  }
+  async getOne(id: number): Promise<User | undefined> {
+    return await this.userRepository.findOne({ 
+        where: { id }, 
+        relations: ['blogSubscriptions', 'blogSubscriptions.blog'] 
+    });
+}
+
 
   async findByEmail(email:string):Promise<User | undefined>{
     return await this.userRepository.findOneBy({email})
