@@ -30,7 +30,7 @@ export class UserService {
 
 
   async findByEmail(email:string):Promise<User | undefined>{
-    return await this.userRepository.findOneBy({email})
+    return await this.userRepository.findOne({where:{email},relations: ['blogSubscriptions', 'blogSubscriptions.blog'] })
  }
 
   async updateUser(id:number,user:User ):Promise<any>{
