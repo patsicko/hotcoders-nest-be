@@ -16,6 +16,6 @@ export class Blog {
     @Column()
     blogContent:string;
 
-    @OneToMany(()=>UserBlogSubscription, subscription=>subscription.blog)
+    @OneToMany(()=>UserBlogSubscription, subscription=>subscription.blog,{ onDelete: 'CASCADE' })
     userSubscriptions:UserBlogSubscription[]
 }

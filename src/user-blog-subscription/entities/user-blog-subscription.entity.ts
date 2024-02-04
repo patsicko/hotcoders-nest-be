@@ -7,10 +7,10 @@ export class UserBlogSubscription {
 @PrimaryGeneratedColumn()
 id:number
 
-@ManyToOne(()=>User,user=>user.blogSubscriptions)
+@ManyToOne(()=>User,user=>user.blogSubscriptions,{ onDelete: 'CASCADE' })
 user:User
 
-@ManyToOne(()=>Blog,blog=>blog.userSubscriptions)
+@ManyToOne(()=>Blog,blog=>blog.userSubscriptions,{ onDelete: 'CASCADE' })
 blog:Blog
 
 }

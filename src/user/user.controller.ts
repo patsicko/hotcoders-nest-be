@@ -83,6 +83,7 @@ export class UserController {
     @Res({passthrough:true}) response:Response
    ){
     const user= await this.userService.findByEmail(email);
+    console.log("loggin userrrrr",user)
 
     if(!user){
         throw new BadRequestException('Invalid credentials');

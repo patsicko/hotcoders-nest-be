@@ -33,7 +33,7 @@ export class User{
     @Column({ type: 'json', nullable: true }) 
     momoPaymentResponse?: object | string;
 
-    @OneToMany(()=>UserBlogSubscription,subscription=>subscription.user)
+    @OneToMany(()=>UserBlogSubscription,subscription=>subscription.user,{ onDelete: 'CASCADE' })
     blogSubscriptions:UserBlogSubscription[]
 
 }
